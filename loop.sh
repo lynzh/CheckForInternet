@@ -1,11 +1,15 @@
 #!/bin/sh
 # Script to run a constant check for internet access
-# Should be run as sudo if you want to interface with unicornhat
 
+# initial echos
+
+if [ "$@" ] ; then
+	while sleep "$@";
+	do
+	clear;
+	echo "## Terminate with ^C or Ctrl+c ## "
 
 PING_CHECK=$(ping -c 1 -i 1 -t 10 195.159.0.100 | awk '/received/ { system("echo "$4) }')
-
-
 RunCheck() { 
 	
 	if [ $PING_CHECK  = "1" ] ;
@@ -16,7 +20,6 @@ RunCheck() {
 		echo "## Error -- Connection DOWN ##"; 
 	fi
 }
-
 RunCheck	
 
 PING_TEST=$(ping -c 1 -i 1 -t 10 123.123.123.142 | awk '/received/ { system("echo "$4) }')
@@ -31,4 +34,12 @@ Runtest() {
 	fi
 }
 
-Runtest	
+Runtest
+	done
+
+elif [ ! "$@" ] ; then
+	echo "Error, usage --"
+	echo "$0 <num>"
+	echo "eg; $0 0.5"
+	exit 1;
+fi	
