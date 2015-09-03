@@ -3,7 +3,7 @@
 
 # Initialize our VARs
 DNS1="195.159.0.100"
-DNS2="195.159.0.100"
+DNS2="195.159.0.200"
 DNS3="4.4.4.4"
 
 # Initialize our checks/pings
@@ -23,8 +23,8 @@ PING_DNS3=$(ping -c 1 -i 1 -t 10 ${DNS3} | awk '/received/ { system("echo "$4) }
 
 #
 echo "\$DNS1 = $DNS1"
-echo "\$DNS1 = $DNS1"
-echo "\$DNS1 = $DNS1"
+echo "\$DNS2 = $DNS2"
+echo "\$DNS3 = $DNS3"
 
 echo "\$PING_DNS1 = $PING_DNS1"
 echo "\$PING_DNS2 = $PING_DNS2"
