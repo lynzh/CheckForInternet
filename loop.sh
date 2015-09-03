@@ -3,13 +3,13 @@
 
 # Initialize our VARs
 DNS1="195.159.0.100"
-DNS2="195.159.0.200"
-DNS3="4.4.4.4"
+DNS2="178.62.149.188"
+DNS3="8.8.8.8"
 
 # Initialize our checks/pings
-PING_DNS1=$(ping -c 1 -i 1 -t 10 ${DNS1} | awk '/received/ { system("echo "$4) }')
-PING_DNS2=$(ping -c 1 -i 1 -t 10 ${DNS2} | awk '/received/ { system("echo "$4) }')
-PING_DNS3=$(ping -c 1 -i 1 -t 10 ${DNS3} | awk '/received/ { system("echo "$4) }')
+PING_DNS1=$(ping -c 1 -w 1 ${DNS1} | awk '/received/ { system("echo "$4) }')
+PING_DNS2=$(ping -c 1 -w 1 ${DNS2} | awk '/received/ { system("echo "$4) }')
+PING_DNS3=$(ping -c 1 -w 1 ${DNS3} | awk '/received/ { system("echo "$4) }')
 
 #elif [ ! "$@" ] ; then
 #	echo "Error, usage --"
