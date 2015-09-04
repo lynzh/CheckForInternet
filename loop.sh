@@ -37,7 +37,19 @@ then
 	exit 0	
 elif [ $PING_DNS1 ! "1" ];
 then
-	exit 1
+	if [ $PING_DNS2  = "1" ] ;
+	then
+		exit 0	
+	elif [ $PING_DNS2 ! "1" ];
+	then
+		if [ $PING_DNS3  = "1" ] ;
+		then
+			exit 0	
+		elif [ $PING_DNS3 ! "1" ];
+		then
+			exit 1
+		fi
+	fi
 fi
 }
 RunCheck	
