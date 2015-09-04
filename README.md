@@ -13,5 +13,5 @@ No support for that yet
 ./loop.sh
 
 # Todo? 
-
-finish coding
+---------
+Create interfacing with unicornhat
