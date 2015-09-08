@@ -1,7 +1,11 @@
 #!/bin/sh
 # Script to run a constant check for internet access
 
-# Initialize our VARs
+# Initialize our Static? VARs
+DNS_COUNT="" # How many packets to send
+DNS_DEADLINE="" # Time to wait before timing out in seconds
+
+# Initialize our DNS VARs
 DNS1="195.159.0.100"
 DNS2="178.62.149.188"
 DNS3="8.8.8.8"
