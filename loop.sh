@@ -2,8 +2,8 @@
 # Script to run a constant check for internet access
 
 # Initialize our Static? VARs
-DNS_COUNT="" # How many packets to send
-DNS_DEADLINE="" # Time to wait before timing out in seconds
+DNS_COUNT="1" # How many packets to send
+DNS_DEADLINE="1" # Time to wait before timing out in seconds
 
 # Initialize our DNS VARs
 DNS1="195.159.0.100"
@@ -12,7 +12,7 @@ DNS3="8.8.8.8"
 
 RunCheck() { 	
 # Initialize our first ping 
-PING_DNS1=$(ping -c 1 -w 1 ${DNS1} | \
+PING_DNS1=$(ping -c ${DNS_COUNT} -w ${DNS_DEADLINE} ${DNS1} | \
 awk '/received/ { system("echo "$4) }')
 if [ $PING_DNS1  = "1" ];
 then
@@ -20,7 +20,7 @@ then
 elif [ $PING_DNS1 ! "1" ];
 then
 	# first ping check failed, so initalizing second
-	PING_DNS2=$(ping -c 1 -w 1 ${DNS2} | \
+	PING_DNS2=$(ping -c ${DNS_COUNT} -w ${DNS_DEADLINE} ${DNS2} | \
 	awk '/received/ { system("echo "$4) }')
 	if [ $PING_DNS2  = "1" ];
 	then
@@ -30,7 +30,7 @@ then
 		# and third, most runs of this program will never ever
 		# ever reach this stage and its redundant to even have a third
 		# step. But redundancy is good, sometimes. I heard.
-		PING_DNS3=$(ping -c 1 -w 1 ${DNS3} | \
+		PING_DNS3=$(ping -c ${DNS_COUNT} -w ${DNS_DEADLINE} ${DNS3} | \
 		awk '/received/ { system("echo "$4) }')
 		if [ $PING_DNS3  = "1" ];
 		then
