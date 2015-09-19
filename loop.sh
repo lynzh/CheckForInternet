@@ -1,6 +1,25 @@
 #!/bin/sh
 # Script to run a constant check for internet access
 
+# Placeholder code for injecting commands to RaspberryPi
+RUN_GREEN() 
+{ 
+	echo "\c";
+	#psuedo code
+}
+
+RUN_YELLOW() 
+{ 
+	echo "\c";
+	#psuedo code
+}
+
+RUN_RED() 
+{
+	echo "\c";
+	#psuedo code
+}
+
 # Initialize our Static? VARs
 DNS_COUNT="1" # How many packets to send
 DNS_DEADLINE="1" # Time to wait before timing out in seconds
@@ -17,7 +36,8 @@ PING_DNS1=$(ping -c ${DNS_COUNT} -w ${DNS_DEADLINE} ${DNS1} | \
 awk '/received/ { system("echo "$4) }')
 if [ $PING_DNS1  = "1" ];
 then
-	exit 0 # if connectivity exists to $DNS1, exit with no errors	
+	RUN_GREEN; # Internet is UP
+	exit 0; # if connectivity exists to $DNS1, exit with no errors	
 elif [ $PING_DNS1 != "1" ];
 then
 	# first ping check failed, so initalizing second
@@ -25,7 +45,8 @@ then
 	awk '/received/ { system("echo "$4) }')
 	if [ $PING_DNS2  = "1" ];
 	then
-		exit 0 # OR if DNS1 fails, check for DNS2	
+		RUN_GREEN; # Internet is UP
+		exit 0; # OR if DNS1 fails, check for DNS2	
 	elif [ $PING_DNS2 != "1" ];
 	then
 		# and third, most runs of this program will never ever
@@ -35,11 +56,13 @@ then
 		awk '/received/ { system("echo "$4) }')
 		if [ $PING_DNS3  = "1" ];
 		then
-			exit 0 # if attempts at connctivity fails here, all the internet
-						 # is down OR something is wrong with our network
+			RUN_GREEN; # Internet is UP
+			exit 0; # if attempts at connctivity fails here, all the internet
+						# is down OR something is wrong with our network
 		elif [ $PING_DNS3 != "1" ];
 		then
-			exit 1
+			RUN_RED; 
+			exit 1;
 		fi
 	fi
 fi
